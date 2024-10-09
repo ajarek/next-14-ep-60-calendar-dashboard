@@ -1,5 +1,5 @@
 import React from 'react'
-import { CalendarForm } from './Calendar'
+import { CalendarForm } from './CalendarForm'
 import { Button } from '@/components/ui/button'
 import { X } from 'lucide-react'
 import { useActionStore } from '@/store/actionStore'

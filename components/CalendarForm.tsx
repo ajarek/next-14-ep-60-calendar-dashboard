@@ -32,6 +32,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
+import { useEventsStore } from '@/store/eventsStore'
 
 const FormSchema = z.object({
   dateTime: z.object({
@@ -53,7 +54,10 @@ const FormSchema = z.object({
   }),
 })
 
+
+
 export function CalendarForm() {
+  const { addItemToEvent } = useEventsStore()
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
   })
@@ -69,6 +73,15 @@ export function CalendarForm() {
         </pre>
       ),
     })
+    const item = {
+      id: Date.now(),
+      date: data.dateTime.date.toLocaleDateString(),
+      timeOn: data.dateTime.timeOn,
+      timeOff: data.dateTime.timeOff,
+      event: data.dateTime.event,
+      type: data.dateTime.type,
+    }
+    addItemToEvent(item)  
     setIsOpen(false)
   }
 
