@@ -1,7 +1,7 @@
 import { create } from 'zustand'
 import { persist, createJSONStorage } from 'zustand/middleware'
 
-type Item = {
+export type Item = {
   id: number
   date: string
   timeOn: string

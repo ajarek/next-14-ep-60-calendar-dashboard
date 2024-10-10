@@ -89,7 +89,7 @@ export function CalendarForm() {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className='flex flex-col gap-4 '
+        className='flex flex-col gap-4 bg-background p-4 '
       >
         <FormField
           control={form.control}
@@ -132,21 +132,21 @@ export function CalendarForm() {
               </Popover>
 
               <FormControl>
-                <div className='w-full flex items-center justify-between '>
-                  <FormLabel>time On</FormLabel>
+                <div className='w-full flex items-center justify-between bg-background rounded-sm'>
+                  <FormLabel className='pl-2'>time On</FormLabel>
                   <Input
                     type='time'
                     value={field.value?.timeOn || ''}
                     onChange={(e) =>
                       field.onChange({ ...field.value, timeOn: e.target.value })
                     }
-                    className='w-[95px]'
+                    className='w-[95px] '
                   />
                 </div>
               </FormControl>
               <FormControl>
-                <div className='w-full flex items-center justify-between '>
-                  <FormLabel>time Off</FormLabel>
+                <div className='w-full flex items-center justify-between bg-background rounded-sm '>
+                  <FormLabel className='pl-2'>time Off</FormLabel>
                   <Input
                     type='time'
                     value={field.value?.timeOff || ''}
@@ -161,8 +161,8 @@ export function CalendarForm() {
                 </div>
               </FormControl>
               <FormControl>
-                <div className='w-full flex items-center justify-between gap-2 '>
-                  <FormLabel className='text-sm'>Event</FormLabel>
+                <div className='w-full flex items-center justify-between gap-2 bg-background rounded-sm '>
+                  <FormLabel className='pl-2'>Event</FormLabel>
                   <Input
                     type='text'
                     value={field.value?.event || ''}
