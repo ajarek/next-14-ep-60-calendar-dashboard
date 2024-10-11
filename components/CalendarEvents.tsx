@@ -6,6 +6,7 @@ import { z } from 'zod'
 import { useActionStore } from '@/store/actionStore'
 import { toast } from '@/hooks/use-toast'
 import { Calendar } from '@/components/ui/calendar'
+import { useRouter } from 'next/navigation'
 
 import {
   Form,
@@ -25,6 +26,7 @@ const FormSchema = z.object({
 })
 
 const CalendarEvents = () => {
+  const router = useRouter()
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
@@ -37,14 +39,7 @@ const CalendarEvents = () => {
   const { setIsOpen } = useActionStore()
 
   function onSubmit(data: z.infer<typeof FormSchema>) {
-    toast({
-      title: 'Przesłano następujące wartości:',
-      description: (
-        <pre className='mt-2 w-[340px] rounded-md bg-slate-950 p-4'>
-          <code className='text-white'>{JSON.stringify(data, null, 2)}</code>
-        </pre>
-      ),
-    })
+    router.push(`/calendar-day/${data.dateTime.date.toLocaleDateString()}`);
     setIsOpen(false)
   }
 

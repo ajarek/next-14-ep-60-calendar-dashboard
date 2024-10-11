@@ -75,7 +75,7 @@ export function Timetable() {
         {Object.entries(weekEvents).map(([date, dayEvents]) => (
           <div
             key={date}
-            className='border p-4'
+            className='border p-1'
           >
             <h2 className='font-bold mb-2'>{date}</h2>
             {dayEvents
@@ -100,13 +100,7 @@ export function Timetable() {
                     {item.timeOn} - {item.timeOff}
                   </p>
                   <p>{item.type}</p>
-                  <Button
-                    variant='ghost'
-                    size='sm'
-                    onClick={() => removeItemFromEvent(item.id)}
-                  >
-                    <X color='red' />
-                  </Button>
+                 
                 </div>
               ))}
           </div>
