@@ -1,16 +1,13 @@
 'use client'
 
-import { useEventsStore } from '@/store/eventsStore'
 import { useEffect, useState } from 'react'
-import { X } from 'lucide-react'
 import { Button } from './ui/button'
 import { getDateWeek } from '@/lib/getDateWeek'
 import type { Item } from '@/store/eventsStore'
 
 export function Timetable() {
-  const { removeItemFromEvent } = useEventsStore()
   const [weekEvents, setWeekEvents] = useState<{ [key: string]: Item[] }>({})
-  const [currentWeek, setCurrentWeek] = useState(0) 
+  const [currentWeek, setCurrentWeek] = useState(0)
   const [numberWeek, setNumberWeek] = useState(getDateWeek(new Date()))
 
   useEffect(() => {
@@ -33,14 +30,14 @@ export function Timetable() {
     )
 
     storedEvents.forEach((event: Item) => {
-      const formattedEventDate = formatStoredDate(event.date);
+      const formattedEventDate = formatStoredDate(event.date)
       if (formattedEventDate in groupedEvents) {
-        (groupedEvents[formattedEventDate] as Item[]).push(event);
+        ;(groupedEvents[formattedEventDate] as Item[]).push(event)
       }
-    });
+    })
 
-    setWeekEvents(groupedEvents);
-  }, [currentWeek]) 
+    setWeekEvents(groupedEvents)
+  }, [currentWeek, numberWeek])
 
   const formatDate = (date: Date): string => {
     const day = date.getDate().toString().padStart(2, '0')
@@ -50,28 +47,30 @@ export function Timetable() {
   }
 
   const formatStoredDate = (dateString: string): string => {
-    const [day, month, year] = dateString.split('.')
-    return `${day.padStart(2, '0')}.${month.padStart(2, '0')}.${year}`
+    return dateString
+      .split('.')
+      .map((part) => part.padStart(2, '0'))
+      .join('.')
   }
 
   const goToPreviousWeek = () => {
     setCurrentWeek(currentWeek - 1)
-    setNumberWeek(numberWeek - 1)
+    setNumberWeek(numberWeek>1?numberWeek - 1:52)
   }
 
   const goToNextWeek = () => {
     setCurrentWeek(currentWeek + 1)
-    setNumberWeek(numberWeek + 1)
+    setNumberWeek(numberWeek<52?numberWeek + 1:1)
   }
 
   return (
-    <div>
-      <div className='flex justify-between mb-4'>
-        <Button onClick={goToPreviousWeek}>Previous week</Button>
+    <div className='w-full'>
+      <div className=' flex justify-between mb-4'>
+        <Button onClick={goToPreviousWeek} aria-label='Previous week'>Previous week</Button>
         <h2 className='font-bold'>Week {numberWeek}</h2>
-        <Button onClick={goToNextWeek}>Next week</Button>
+        <Button onClick={goToNextWeek} aria-label='Next week'>Next week</Button>
       </div>
-      <div className='grid grid-cols-7 gap-4'>
+      <div className='grid grid-cols-7 max-lg:grid-cols-3 max-sm:grid-cols-2 gap-4'>
         {Object.entries(weekEvents).map(([date, dayEvents]) => (
           <div
             key={date}
@@ -83,7 +82,7 @@ export function Timetable() {
               .map((item: Item) => (
                 <div
                   key={item.id}
-                  className={`p-2 mb-2 rounded ${
+                  className={`flex flex-col p-2 mb-2 rounded ${
                     item.type === 'Meeting'
                       ? 'bg-blue-500'
                       : item.type === 'Trip'
@@ -95,12 +94,11 @@ export function Timetable() {
                       : 'bg-gray-500'
                   }`}
                 >
-                  <p className='font-semibold'>{item.event}</p>
-                  <p>
+                  <div className='font-semibold'>{item.event}</div>
+                  <div>
                     {item.timeOn} - {item.timeOff}
-                  </p>
-                  <p>{item.type}</p>
-                 
+                  </div>
+                  <div>{item.type}</div>
                 </div>
               ))}
           </div>

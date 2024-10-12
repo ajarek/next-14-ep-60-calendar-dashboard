@@ -59,6 +59,7 @@ const CalendarDayPage = ({ params }: { params: { day: string } }) => {
                 variant='ghost'
                 size='sm'
                 onClick={() => removeItemFromEvent(item.id)}
+                aria-label='Delete event'
               >
                 <X color='red' />
               </Button>

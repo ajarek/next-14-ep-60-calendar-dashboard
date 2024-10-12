@@ -102,6 +102,7 @@ export function CalendarForm() {
                         'w-[240px] pl-3 text-left font-normal',
                         !field.value && 'text-muted-foreground'
                       )}
+                      aria-label='Select date'
                     >
                       {field.value?.date ? (
                         format(field.value.date, 'PPP')
@@ -202,7 +203,7 @@ export function CalendarForm() {
             </FormItem>
           )}
         />
-        <Button type='submit'>Send</Button>
+        <Button type='submit' aria-label='Send'>Send</Button>
       </form>
     </Form>
   )
