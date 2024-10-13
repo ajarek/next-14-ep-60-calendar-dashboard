@@ -55,20 +55,30 @@ export function Timetable() {
 
   const goToPreviousWeek = () => {
     setCurrentWeek(currentWeek - 1)
-    setNumberWeek(numberWeek>1?numberWeek - 1:52)
+    setNumberWeek(numberWeek > 1 ? numberWeek - 1 : 52)
   }
 
   const goToNextWeek = () => {
     setCurrentWeek(currentWeek + 1)
-    setNumberWeek(numberWeek<52?numberWeek + 1:1)
+    setNumberWeek(numberWeek < 52 ? numberWeek + 1 : 1)
   }
 
   return (
     <div className='w-full'>
       <div className=' flex justify-between mb-4'>
-        <Button onClick={goToPreviousWeek} aria-label='Previous week'>Previous week</Button>
+        <Button
+          onClick={goToPreviousWeek}
+          aria-label='Previous week'
+        >
+          Previous week
+        </Button>
         <h2 className='font-bold'>Week {numberWeek}</h2>
-        <Button onClick={goToNextWeek} aria-label='Next week'>Next week</Button>
+        <Button
+          onClick={goToNextWeek}
+          aria-label='Next week'
+        >
+          Next week
+        </Button>
       </div>
       <div className='grid grid-cols-7 max-lg:grid-cols-3 max-sm:grid-cols-2 gap-4'>
         {Object.entries(weekEvents).map(([date, dayEvents]) => (

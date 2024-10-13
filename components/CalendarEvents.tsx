@@ -4,7 +4,6 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { useActionStore } from '@/store/actionStore'
-import { toast } from '@/hooks/use-toast'
 import { Calendar } from '@/components/ui/calendar'
 import { useRouter } from 'next/navigation'
 
@@ -39,7 +38,7 @@ const CalendarEvents = () => {
   const { setIsOpen } = useActionStore()
 
   function onSubmit(data: z.infer<typeof FormSchema>) {
-    router.push(`/calendar-day/${data.dateTime.date.toLocaleDateString()}`);
+    router.push(`/calendar-day/${data.dateTime.date.toLocaleDateString()}`)
     setIsOpen(false)
   }
 
@@ -79,4 +78,3 @@ const CalendarEvents = () => {
 }
 
 export default CalendarEvents
-

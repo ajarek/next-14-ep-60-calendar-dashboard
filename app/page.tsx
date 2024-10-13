@@ -9,9 +9,8 @@ export default function Home() {
 
   return (
     <div className='w-full flex flex-col items-start justify-start min-h-screen gap-4 p-4 '>
-      
-        {isOpen && <AddEvent />}
-        <Timetable />
+      {isOpen && <AddEvent />}
+      <Timetable />
     </div>
   )
 }

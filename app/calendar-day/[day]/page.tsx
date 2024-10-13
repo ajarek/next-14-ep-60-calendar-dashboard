@@ -11,8 +11,8 @@ const CalendarDayPage = ({ params }: { params: { day: string } }) => {
   if (lengthEvents === 0)
     return (
       <div className='w-full text-center text-2xl py-12 text-red-500'>
-         <h1 className='text-2xl font-bold'>Date: {params.day}</h1>
-       <p> No events for this day</p>
+        <h1 className='text-2xl font-bold'>Date: {params.day}</h1>
+        <p> No events for this day</p>
       </div>
     )
   return (

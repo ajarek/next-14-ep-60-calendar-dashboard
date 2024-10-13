@@ -8,7 +8,6 @@ import { z } from 'zod'
 import { useActionStore } from '@/store/actionStore'
 
 import { cn } from '@/lib/utils'
-import { toast } from '@/hooks/use-toast'
 import { Button } from '@/components/ui/button'
 import { Calendar } from '@/components/ui/calendar'
 import {
@@ -31,7 +30,7 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select"
+} from '@/components/ui/select'
 import { useEventsStore } from '@/store/eventsStore'
 import { useRouter } from 'next/navigation'
 
@@ -55,8 +54,6 @@ const FormSchema = z.object({
   }),
 })
 
-
-
 export function CalendarForm() {
   const router = useRouter()
   const { addItemToEvent } = useEventsStore()
@@ -67,7 +64,6 @@ export function CalendarForm() {
   const { setIsOpen } = useActionStore()
 
   function onSubmit(data: z.infer<typeof FormSchema>) {
-   
     const item = {
       id: Date.now(),
       date: data.dateTime.date.toLocaleDateString(),
@@ -76,7 +72,7 @@ export function CalendarForm() {
       event: data.dateTime.event,
       type: data.dateTime.type,
     }
-    addItemToEvent(item)  
+    addItemToEvent(item)
     setIsOpen(false)
     router.push(`/calendar-day/${data.dateTime.date.toLocaleDateString()}`)
   }
@@ -176,34 +172,66 @@ export function CalendarForm() {
               <FormControl>
                 <div className='w-full flex items-center justify-between gap-2 '>
                   <FormLabel className='text-sm'>Type</FormLabel>
-                  <Select onValueChange={(e) =>
+                  <Select
+                    onValueChange={(e) =>
                       field.onChange({
                         ...field.value,
                         type: e,
-                      })} defaultValue={field.value?.type || ''}
-                    
+                      })
+                    }
+                    defaultValue={field.value?.type || ''}
+                  >
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue placeholder='Select type' />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      <SelectItem
+                        className='bg-slate-500'
+                        value='Project'
                       >
-                <FormControl>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select type" />
-                  </SelectTrigger>
-                </FormControl>
-                <SelectContent>
-                  <SelectItem className='bg-slate-500' value="Project">Project</SelectItem>
-                  <SelectItem className='bg-blue-500' value="Meeting">Meeting</SelectItem>
-                  <SelectItem className='bg-red-500' value="Education">Education</SelectItem>
-                  <SelectItem className='bg-yellow-500' value="Trip">Trip</SelectItem>
-                  <SelectItem className='bg-green-500' value="Other">Other</SelectItem>
-                </SelectContent>
-              </Select>
-              </div>
+                        Project
+                      </SelectItem>
+                      <SelectItem
+                        className='bg-blue-500'
+                        value='Meeting'
+                      >
+                        Meeting
+                      </SelectItem>
+                      <SelectItem
+                        className='bg-red-500'
+                        value='Education'
+                      >
+                        Education
+                      </SelectItem>
+                      <SelectItem
+                        className='bg-yellow-500'
+                        value='Trip'
+                      >
+                        Trip
+                      </SelectItem>
+                      <SelectItem
+                        className='bg-green-500'
+                        value='Other'
+                      >
+                        Other
+                      </SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
               </FormControl>
 
               <FormMessage />
             </FormItem>
           )}
         />
-        <Button type='submit' aria-label='Send'>Send</Button>
+        <Button
+          type='submit'
+          aria-label='Send'
+        >
+          Send
+        </Button>
       </form>
     </Form>
   )
